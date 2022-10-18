@@ -1,13 +1,30 @@
 <template>
   <h1>Reaction Timer</h1>
+  <button @click="start" :disabled="isPlaying">Play</button>
+
+  <Block v-if="isPlaying" :delay="delay" />
 </template>
 
 <script>
+import Block from "./components/Block.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: { Block },
 
-  data() {},
+  data() {
+    return {
+      isPlaying: false,
+      delay: null,
+    };
+  },
+
+  methods: {
+    start() {
+      this.delay = 2000 + Math.trunc(Math.random() * 8000);
+      this.isPlaying = true;
+    },
+  },
 };
 </script>
 
@@ -16,5 +33,22 @@ export default {
   text-align: center;
   color: #444;
   margin-top: 60px;
+}
+
+button {
+  padding: 10px 45px;
+  border-radius: 25px;
+  border: 1px solid #333;
+}
+
+button:hover {
+  background-color: #42d392;
+  color: white;
+}
+
+button:disabled {
+  border: none;
+  background-color: #999;
+  color: #888;
 }
 </style>
